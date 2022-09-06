@@ -105,7 +105,14 @@ class _SharePreferencePageState extends State<SharePreferencePage> {
     );
   }
 
- 
+  void _saveData() async {
+    final _name = _nameController.text;
+    final preferences = await SharedPreferences.getInstance();
+    preferences.setString("name", _name);
+    preferences.setBool("student", _student);
+    preferences.setInt("gender", _selectedGender.index);
+  }
+
   Widget _buildRadioListTiles(String title, Gender gender) {
     return RadioListTile(
         title: Text(title),
