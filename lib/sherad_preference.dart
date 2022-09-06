@@ -13,11 +13,17 @@ class SharePreferencePage extends StatefulWidget {
 class _SharePreferencePageState extends State<SharePreferencePage> {
   var _selectedGender = Gender.Women;
 
-  var _selectedColors = [];
+  var _selectedColors = <String>[];
 
   var _student = false;
 
   TextEditingController _nameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _readData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +117,10 @@ class _SharePreferencePageState extends State<SharePreferencePage> {
     preferences.setString("name", _name);
     preferences.setBool("student", _student);
     preferences.setInt("gender", _selectedGender.index);
+    preferences.setStringList("colors", _selectedColors);
   }
+
+  
 
   Widget _buildRadioListTiles(String title, Gender gender) {
     return RadioListTile(
