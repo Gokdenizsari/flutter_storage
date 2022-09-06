@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_storage/model/gender.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SharePreferencePage extends StatefulWidget {
   const SharePreferencePage({Key? key}) : super(key: key);
@@ -14,6 +15,10 @@ class _SharePreferencePageState extends State<SharePreferencePage> {
 
   var _selectedColors = [];
 
+  var _student = false;
+
+  TextEditingController _nameController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +29,7 @@ class _SharePreferencePageState extends State<SharePreferencePage> {
         children: [
           ListTile(
             title: TextField(
+              controller: _nameController,
               decoration: InputDecoration(labelText: "Enter  Your Name"),
             ),
           ),
@@ -64,13 +70,16 @@ class _SharePreferencePageState extends State<SharePreferencePage> {
                   _selectedGender = selectedGender!;
                 });
               }),*/
-          _buildRadioListTiles("Man", Gender.Man),
+          for (var item in Gender.values)
+            _buildRadioListTiles(describeEnum(item), item),
+          /* _buildRadioListTiles("Man", Gender.Man),
           _buildRadioListTiles("Women", Gender.Women),
-          _buildRadioListTiles("Other", Gender.Other),
-          _buildChecboxListTiles(Colors1.Blue),
+          _buildRadioListTiles("Other", Gender.Other),*/
+          for (var item in Colors1.values) _buildChecboxListTiles(item),
+          /* _buildChecboxListTiles(Colors1.Blue),
           _buildChecboxListTiles(Colors1.Red),
           _buildChecboxListTiles(Colors1.Purple),
-          _buildChecboxListTiles(Colors1.Orange),
+          _buildChecboxListTiles(Colors1.Orange),*/
           /*   CheckboxListTile(
               title: Text(describeEnum(Colors1.Purple)),
               value: _selectedColors.contains(Colors1.Purple),
@@ -82,11 +91,21 @@ class _SharePreferencePageState extends State<SharePreferencePage> {
                 }
                 setState(() {});
               })*/
+          SwitchListTile(
+              title: Text("Are you student ?"),
+              value: _student,
+              onChanged: (bool student) {
+                setState(() {
+                  _student = student;
+                });
+              }),
+          TextButton(onPressed: _saveData, child: Text("Save")),
         ],
       ),
     );
   }
 
+ 
   Widget _buildRadioListTiles(String title, Gender gender) {
     return RadioListTile(
         title: Text(title),
