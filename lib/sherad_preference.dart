@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_storage/model/gender.dart';
+import 'package:flutter_storage/model/services/sherad_pref_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharePreferencePage extends StatefulWidget {
@@ -18,11 +19,12 @@ class _SharePreferencePageState extends State<SharePreferencePage> {
   var _student = false;
 
   TextEditingController _nameController = TextEditingController();
+  var _preferenceService = SharedPreferenceServices();
 
   @override
   void initState() {
     super.initState();
-    _readData();
+    _preferenceService.readData();
   }
 
   @override
@@ -105,28 +107,16 @@ class _SharePreferencePageState extends State<SharePreferencePage> {
                   _student = student;
                 });
               }),
-          TextButton(onPressed: _saveData, child: Text("Save")),
+          TextButton(
+              onPressed: () {
+                var _userInformation = UserImformation(_nameController.text,
+                    _selectedGender, _selectedColors, _student);
+                _preferenceService.saveData(_userInformation);
+              },
+              child: Text("Save")),
         ],
       ),
     );
-  }
-
-  void _saveData() async {
-    final _name = _nameController.text;
-    final preferences = await SharedPreferences.getInstance();
-    preferences.setString("name", _name);
-    preferences.setBool("student", _student);
-    preferences.setInt("gender", _selectedGender.index);
-    preferences.setStringList("colors", _selectedColors);
-  }
-
-  void _readData() async {
-    final preferences = await SharedPreferences.getInstance();
-    _nameController.text = preferences.getString("name") ?? "";
-    _student = preferences.getBool("student") ?? false;
-    _selectedGender = Gender.values[preferences.getInt("gender") ?? 0];
-    _selectedColors = preferences.getStringList("colors") ?? <String>[];
-    setState(() {});
   }
 
   Widget _buildRadioListTiles(String title, Gender gender) {
