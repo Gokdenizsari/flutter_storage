@@ -26,7 +26,7 @@ class SecureStorageService {
     var _genderString = await preferences.read(key: "gender") ?? "0";
     var _gender = Gender.values[int.parse(_genderString)];
     var _colors1String = await preferences.read(key: "colors") ?? "";
-    var _colors1 = List<String>.from(jsonDecode(_colors1String));
+    var _colors1 =_colors1String==null ? <String>[] : List<String>.from(jsonDecode(_colors1String));
 
     return UserImformation(_name, _gender, _colors1, _student);
   }
