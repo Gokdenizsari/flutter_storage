@@ -14,16 +14,20 @@ class FileStorageService {
     _createFile();
   }
 
-  _createFile() async {
+  Future<File> _createFile() async {
     var file = File(await _getFilePath() + "/info.txt");
-    await file.writeAsString("trial content");
+    return file;
   }
 
   void saveData(UserImformation userImformation) async {
-    userImformation.toJson();
+    var file = await _createFile();
+    await file.writeAsString(jsonEncode(userImformation));
   }
 
   Future readData() async {
-    return UserImformation("Try", Gender.Other, ["Purple"], false);
+    var file = await _createFile();
+    var pageString = await file.readAsString();
+    var json = jsonDecode(pageString);
+    return;
   }
 }
