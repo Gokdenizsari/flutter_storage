@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_storage/model/gender.dart';
+import 'package:flutter_storage/model/services/file_storage%20.dart';
 import 'package:flutter_storage/model/services/secure_storage.dart';
 import 'package:flutter_storage/model/services/sherad_pref_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,7 +21,7 @@ class _SharePreferencePageState extends State<SharePreferencePage> {
   var _student = false;
 
   TextEditingController _nameController = TextEditingController();
-  var _preferenceService = SecureStorageService();
+  var _preferenceService = FileStorageService();
 
   @override
   void initState() {
