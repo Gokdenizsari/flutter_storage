@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter_storage/model/gender.dart';
+import 'package:flutter_storage/model/my_model.dart';
 
 class FileStorageService {
   _getFilePath() async {
@@ -19,7 +19,9 @@ class FileStorageService {
     await file.writeAsString("trial content");
   }
 
-  void saveData(UserImformation userImformation) async {}
+  void saveData(UserImformation userImformation) async {
+    userImformation.toJson();
+  }
 
   Future readData() async {
     return UserImformation("Try", Gender.Other, ["Purple"], false);

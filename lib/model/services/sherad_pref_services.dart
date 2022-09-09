@@ -1,4 +1,4 @@
-import 'package:flutter_storage/model/gender.dart';
+import 'package:flutter_storage/model/my_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferenceServices {

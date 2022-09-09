@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:flutter_storage/model/gender.dart';
+import 'package:flutter_storage/model/my_model.dart';
 
 class SecureStorageService {
   late final FlutterSecureStorage preferences;
