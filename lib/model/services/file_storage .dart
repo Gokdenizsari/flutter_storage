@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter_storage/model/services/local_storage_service.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_storage/model/my_model.dart';
 
-class FileStorageService {
+class FileStorageService implements LocalStorageService {
   _getFilePath() async {
     var filePath = await getApplicationDocumentsDirectory();
     return filePath.path;
@@ -19,15 +20,15 @@ class FileStorageService {
     return file;
   }
 
-  void saveData(UserImformation userImformation) async {
+  Future<void> saveData(UserImformation userImformation) async {
     var file = await _createFile();
     await file.writeAsString(jsonEncode(userImformation));
   }
 
-  Future readData() async {
+  Future<UserImformation> readData() async {
     var file = await _createFile();
     var pageString = await file.readAsString();
     var json = jsonDecode(pageString);
-    return;
+    return json;
   }
 }
