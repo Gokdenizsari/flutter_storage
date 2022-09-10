@@ -2,8 +2,18 @@ import 'package:flutter_storage/model/my_model.dart';
 import 'package:flutter_storage/model/services/local_storage_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedPreferenceServices  implements LocalStorageService{
- Future <void> saveData(UserImformation userImformation) async {
+class SharedPreferenceServices implements LocalStorageService {
+  late final SharedPreferenceServices preferences;
+
+  SharedPreferenceServices() {
+    flut();
+  }
+
+  Future<void> flut() async {
+    
+  }
+
+  Future<void> saveData(UserImformation userImformation) async {
     final _name = userImformation.name;
     final preferences = await SharedPreferences.getInstance();
     preferences.setString("name", _name);
@@ -12,8 +22,8 @@ class SharedPreferenceServices  implements LocalStorageService{
     preferences.setStringList("colors", userImformation.colors1);
   }
 
-  Future<UserImformation>readData() async {
-    final preferences = await SharedPreferences.getInstance();
+  Future<UserImformation> readData() async {
+   final preferences = await SharedPreferences.getInstance();
 
     var _name = preferences.getString("name") ?? "";
     var _student = preferences.getBool("student") ?? false;
