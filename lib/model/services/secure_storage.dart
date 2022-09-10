@@ -4,8 +4,12 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_storage/model/my_model.dart';
 import 'package:flutter_storage/model/services/local_storage_service.dart';
 
-class SecureStorageService implements LocalStorageService{
+class SecureStorageService implements LocalStorageService {
   late final FlutterSecureStorage preferences;
+
+  SecureStorageService() {
+    preferences = const FlutterSecureStorage();
+  }
   Future<void> saveData(UserImformation userImformation) async {
     final _name = userImformation.name;
 
@@ -19,7 +23,7 @@ class SecureStorageService implements LocalStorageService{
         key: "colors", value: jsonEncode(userImformation.colors1));
   }
 
-  Future <UserImformation> readData() async {
+  Future<UserImformation> readData() async {
     preferences = FlutterSecureStorage();
     var _name = await preferences.read(key: "name") ?? "";
     var _studentString = await preferences.read(key: "student") ?? "false";
@@ -27,7 +31,9 @@ class SecureStorageService implements LocalStorageService{
     var _genderString = await preferences.read(key: "gender") ?? "0";
     var _gender = Gender.values[int.parse(_genderString)];
     var _colors1String = await preferences.read(key: "colors") ?? "";
-    var _colors1 =_colors1String==null ? <String>[] : List<String>.from(jsonDecode(_colors1String));
+    var _colors1 = _colors1String == null
+        ? <String>[]
+        : List<String>.from(jsonDecode(_colors1String));
 
     return UserImformation(_name, _gender, _colors1, _student);
   }
