@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_storage/model/services/file_storage%20.dart';
+import 'package:flutter_storage/model/services/local_storage_service.dart';
 import 'package:flutter_storage/model/services/secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'sherad_preference.dart';
@@ -6,10 +8,12 @@ import 'sherad_preference.dart';
 final locator = GetIt.instance;
 
 void setup() {
-  locator.registerSingleton<SecureStorageService>(SecureStorageService());
+  locator.registerSingleton<LocalStorageService>(FileStorageService());
 }
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  setup();
   runApp(const MyApp());
 }
 
