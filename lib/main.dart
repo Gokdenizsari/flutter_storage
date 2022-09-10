@@ -1,4 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_storage/model/services/secure_storage.dart';
+import 'package:get_it/get_it.dart';
+import 'sherad_preference.dart';
+
+final locator = GetIt.instance;
+
+void setup() {
+  locator.registerSingleton<SecureStorageService>(SecureStorageService());
+}
 
 void main() {
   runApp(const MyApp());
