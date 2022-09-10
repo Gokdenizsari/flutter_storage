@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_storage/model/my_model.dart';
+import 'package:flutter_storage/model/services/local_storage_service.dart';
 
-class SecureStorageService {
+class SecureStorageService implements LocalStorageService{
   late final FlutterSecureStorage preferences;
-  void saveData(UserImformation userImformation) async {
+  Future<void> saveData(UserImformation userImformation) async {
     final _name = userImformation.name;
 
     await preferences.write(key: "name", value: _name);
@@ -18,7 +19,7 @@ class SecureStorageService {
         key: "colors", value: jsonEncode(userImformation.colors1));
   }
 
-  Future readData() async {
+  Future <UserImformation> readData() async {
     preferences = FlutterSecureStorage();
     var _name = await preferences.read(key: "name") ?? "";
     var _studentString = await preferences.read(key: "student") ?? "false";

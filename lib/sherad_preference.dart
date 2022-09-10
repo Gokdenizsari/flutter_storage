@@ -20,8 +20,8 @@ class _SharePreferencePageState extends State<SharePreferencePage> {
 
   var _student = false;
 
-  TextEditingController _nameController = TextEditingController();
-  var _preferenceService = FileStorageService();
+  final TextEditingController _nameController = TextEditingController();
+  final _preferenceService = FileStorageService();
 
   @override
   void initState() {
